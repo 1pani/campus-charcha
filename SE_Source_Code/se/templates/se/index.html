@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" type="text/css" href="../../static/se/index1.css">
+<link href="https://fonts.googleapis.com/css?family=PT+Sans|Raleway" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>DF</title>
+<script>
+      function forum1() {
+    var x = document.getElementById("forum");
+    var y = document.getElementById("music");
+    var z = document.getElementById("topics_related");
+    if (z.style.display === "none") {
+        z.style.display = "grid";
+        //y.style.display = "none";
+        x.style.backgroundColor = "#ffffff";
+        y.style.backgroundColor = "#f2f2f2";
+        x.style.fontWeight = 'bold';
+        y.style.fontWeight='normal';
+    }
+    else {
+        z.style.display = "block";
+        x.style.backgroundColor = "#ffffff";
+        y.style.backgroundColor = "#f2f2f2";
+        x.style.fontWeight = 'bold';
+        y.style.fontWeight='normal';
+    }
+
+  }
+  function music1() {
+    var x = document.getElementById("forum");
+    var y = document.getElementById("music");
+    var z = document.getElementById("topics_related");
+    if (z.style.display === "grid") {
+        z.style.display = "none";
+        //x.style.display = "none";
+        y.style.backgroundColor = "#ffffff";
+        x.style.backgroundColor = "#f2f2f2";
+        y.style.fontWeight = 'bold';
+        x.style.fontWeight='normal';
+    }
+    else {
+        z.style.display = "none";
+        y.style.backgroundColor = "#ffffff";
+        x.style.backgroundColor = "#f2f2f2";
+        y.style.fontWeight = 'bold';
+        x.style.fontWeight='normal';
+    }
+
+  }
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "350px";
+    document.getElementById("main").style.marginRight = "350px";
+    document.body.style.backgroundColor = "rgba(0,0,0,0.1)";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+    document.body.style.backgroundColor = "white";
+}
+</script>
+
+
+</head> 
+<body>
+   <div id="nav">
+   
+   <a><img src="../../static/se/images/new.png" id="logo"></a>
+           <div class="search-container" >
+    <form action="/action_page.php">
+      <input type="text" placeholder="Search Topics" name="search">
+      <!--<button type="submit"><i class="fa fa-search" style="color: white;"></i></button>-->
+    </form>
+  </div>
+  <div id="start">
+   	<button>
+      Add
+    </button>
+   <img src="../../static/se/images/music.png" >
+    <img src="../../static/se/images/avatar.jpg" id="avatar" onclick="openNav()">
+    </div>
+   </div>
+    <div id="sidebar">
+       <button id="forum" onclick="forum1()" ><i class="fa fa-list-alt" style="color: #ff0d22;"></i> Forum</button>
+       <!--<button id="music" onclick="music1()"><i class="fa fa-music" style="color: #ff0d22;"></i> Music</button>-->
+</div>
+<div id="topics_related">
+      {% for topics1 in topics %}
+      <div class="img1" onClick="window.location='/topic';">
+        <a><img src="../../static/se/{{ topics1.image_url }}" class="image"></a>
+        <div id="box">
+          <h1 id="topic_name">{{ topics1.Main_heading }}</h1>
+          <div id="desc1">
+{#          <p id="nof_posts">{{ topics1.no_of_views }} views | {{ topics1.no_of_posts }} Posts</p>#}
+          <p id="desc"> {{ topics1.description }}</p>
+          </div>
+        </div>
+      </div>
+     {% endfor %}
+</div>
+<div id="mySidenav" class="sidenav">
+  <div id="cart">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="color: #ff0d22">&times;</a>
+      <span id="logout" onClick="window.location='/logout';"> LOGOUT </span>
+  </div>
+
+</div>
+</body>
+
+</html>

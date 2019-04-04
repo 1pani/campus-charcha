@@ -1,0 +1,215 @@
+@font-face {
+    font-family: 'hel_bold';
+    src: url('../fonts/HelveticaNeueMedium.woff') format('woff'),
+		url('../fonts/HelveticaNeueMedium.woff2') format('woff2')
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+	margin: 0px;
+	font-family:  sans-serif;
+    font-size: 14px;
+    background-color: #f2f2f2;
+    height: 1200px;
+}
+#nav{
+	
+	background-color: white;
+	overflow: hidden;
+	height: 58px;
+	box-shadow: 1px 1px #d9d9d9;
+	position: fixed;
+	width: 100%;
+	z-index: 1000;
+	display: grid;
+	grid-area: nav;
+
+}
+#nav a{
+	float: left;
+	display: block;
+  	padding: 14px 16px;
+  	
+
+}
+#logo{
+	position: relative;
+	left: 7em;
+	top: -1.60em;
+}
+#nav .search-container{
+	position: absolute;
+	left: 26.5em;
+	width: auto;
+	margin:0px;
+}
+#nav input[type=text] {
+  padding: 7px;
+  margin-top: 12px;
+  font-size: 14px;
+  border: 1px solid #e2e2e2;
+  min-width: 200px;
+  max-width: 500px;
+  border-radius: 4px;
+  background-color: #f3f5f9;
+  padding-left: 26px;
+  background: url(../images/search.png) no-repeat 8px center;
+}
+#nav input[type=text]::placeholder{
+	color: grey;
+	opacity: 1;
+}
+#hi :: placeholder {
+	color: grey;
+	opacity: 1;
+}
+#nav .search-container button {
+  padding: 5px 12px;
+  margin-top:12px;
+  margin-right: 16px;
+  background: #697683;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  left: -0.5em;
+  border-radius: 4px;
+  box-shadow: 1px 1px 1px #d9d9d9;
+}
+#nav #start {
+	position: absolute;
+	right: 12em;
+}
+
+#nav #start button {
+	margin-top: 12px;
+	height: 32px;
+    border: none;
+    cursor: pointer;
+    box-shadow: none;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'Open Sans Bold', sans-serif;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color:#ff0d22;
+    border-radius: 3px;
+}
+#nav #start img{
+
+	float: right;
+	margin-top: 12px;
+	margin-left: 40px;
+	height: 32px;
+	width: 32px;
+	cursor: pointer;
+}
+#avatar{
+	float: left;
+	border-radius: 50%;
+}
+#grid{
+	grid-template-areas: "nav nav"
+	"sidebar middlecontent"
+}
+
+#topics_related{
+	width: 1000px;
+	height: 600px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-area: middlecontent;
+}
+.box{
+	cursor: pointer;
+}
+.img1{
+	float: left;
+	width: 400px;
+	height: 467px;
+	border: 1px solid #e2e2e2;
+	background-color: white;
+	margin-right: 40px;
+	border-radius: 10px;
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+.image{
+	border-top-right-radius:10px;
+	border-top-left-radius:10px;
+	width: 400px;
+	height: 467px;
+	cursor: pointer;
+}
+#topic_name{
+	font-family:'Raleway', sans-serif;
+	text-align: center;
+	font-size: 28px;
+	text-decoration: none;
+	color: #404040;
+	margin-bottom: 15px;
+}
+#desc{
+	font-family: 'PT Sans', sans-serif;
+	margin-left: : 20px;
+	font-size: 16px;
+	color: grey;
+	text-align: center;
+}
+#nof_posts{
+	text-align:center;
+	font-family: 'PT Sans', sans-serif;
+	font-size: 13px;
+	margin-bottom: 30px;
+	color: grey;
+}
+#main_content{
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+#sidebar{
+	width: 200px;
+	height: 400px;
+	display: grid;
+	grid-area: sidebar;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    right: 0;
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    color: white;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+

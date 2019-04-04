@@ -1,0 +1,48 @@
+{% extends "poll/base.html" %}
+
+{% load i18n %}
+
+{% block poll_script %}
+<script type="text/javascript">
+var vote_url = '{% url "poll_ajax_vote" poll.pk %}';
+var result_url = '{% url "poll_result" poll.pk %}';
+document.addEventListener('DOMContentLoaded', function(){
+    function showResults() {
+        $.get(result_url, function(data) {
+            $(".lo").html(data);
+        });
+    }
+    $("#poll_send").click(function() {
+        var item = $('#poll_form input[name=item]:checked').val();
+        if (typeof item === "undefined") {
+            alert("{% trans 'Please, select an answer' %}");
+            return false;
+        }
+        $.get(vote_url, {item: item}, function() {
+            showResults();
+        });
+        return false;
+    });
+});
+</script>
+{% endblock %}
+
+{% block poll_content %}
+<div class="poll_style post">
+    <form method="GET" action="." id="poll_form">
+        <p class="title" id="question">{{ poll.title }}</p>
+        <div class="vote">
+            {% for i in items %}
+            <input type="radio" name="item" id="item_{{ i.id }}" value="{{ i.id }}" />
+                <label for="item_{{ i.id }}">{{ i.value }}</label>
+            {% endfor %}
+        </div>
+        <p class="poll_send" style="width: 400px;
+	padding-left: 20px;"><input type="button" class="vote_button vote_but" id="poll_send" value="{% trans 'Vote' %}" /></p>
+    </form>
+    <div class="answer_box">
+		<button><i class="fa fa-bell"><span>Follow</span></i></button>
+		<button><i class="fa fa-bookmark-o"><span>Bookmark</span></i></button>
+	</div>
+</div>
+{% endblock %}

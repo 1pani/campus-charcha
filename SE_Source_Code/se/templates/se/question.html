@@ -1,0 +1,226 @@
+{% extends 'se/topic.html' %}
+{% block post %}
+        {% for answers1 in answers %}
+        <div class="post">
+	    <div id="quest_views">
+	    <p id="question">{{ answers1.question }}</p>
+{#	    <i class="fa fa-eye"  id="views"> <span id="count_views">24.k views</span></i>#}
+	    </div>
+	    <div id="profile_pic">
+	    <img src="../../static/se/images/avatar.jpg" id="avatar">
+	    <div><h1 id="profile_name">{{ answers1.username }}</h1><p id="answer_time"><i class="fa fa-clock-o" id="time"></i> {{ answers1.q_dt }}</p></div>
+	    </div>
+
+		<p class="answer">{{ answers1.answer }}</p>
+
+
+	    <button class="more">more</button>
+            <div class="umaa">
+	    <div class="social_icons" id="uma">
+
+<div class="sh">
+            <form id="up" method="post" action="/upvote/">
+            {% csrf_token %}
+                <input type="hidden" name="q_id" value="{{ answers1.q_id }}">
+                <input type="hidden" name="username" value="{{ user.username }}">
+
+
+                <button type="submit" > <i class="fa fa-thumbs-up" ></i><span><b>Upvote . {{ answers1.upvotes }}</b></span></button>
+
+		    </form>
+
+            <form id="down" method="post" action="/downvote/">
+            {% csrf_token %}
+                <input type="hidden" name="q_id" value="{{ answers1.q_id }}">
+                <input type="hidden" name="username" value="{{ user.username }}">
+
+
+                <button type="submit" > <i class="fa fa-thumbs-down" ></i><span><b>Downvote . {{ answers1.downvotes }}</b>
+		    </form>
+            </div>
+
+
+
+
+
+			<!--<i class="fa fa-reply" class="reply" onclick="reply(this)"><span>Reply<span></i>-->
+
+            <div class="make_comment" id="new">
+                <img src="../../static/se/images/avatar.jpg" id="avatar1">
+                <form class="reply_form" method="post" action="/comment/">
+                     {% csrf_token %}
+                    <input type="text" name="comment" placeholder="Add a comment" class="rap">
+                    <input type="hidden" name="ans_id" value="{{ answers1.id }}">
+                    <button type="submit">comment</button>
+                </form>
+            </div>
+        </div>
+	    </div>
+        {% for com in comments %}
+            {% if com.ans_id == answers1.id  %}
+        	<div class="comments">
+			<div id="profile_pic">
+			<img src="../../static/se/images/avatar.jpg" id="avatar">
+			<div><h1 id="profile_name">{{ user.username }}</h1></div>
+                <br>
+			</div>
+			<p class="comment">{{ com.comment }}</p>
+
+
+
+	</div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+
+
+
+    {% for questions1 in questions %}
+<div class="post">
+	<div id="quest_views">
+		<p id="question">{{ questions1.question }}</p>
+		<span id="noanswer">No answer yet .</span>
+		<!--<i class="fa fa-eye" id="views"> <span id="count_views">24.k views</span></i>-->
+	</div>
+	<div class="answer_box">
+		<button onclick="document.getElementById('askque1').style.display='block'"><i class="fa fa-pencil"><span>Answer</span></i></button>
+		<button><i class="fa fa-bell"><span>Follow</span></i></button>
+		<button><i class="fa fa-bookmark-o"><span>Bookmark</span></i></button>
+	</div>
+<div id="askque1" class="ask1">
+	<div class="whichone" id="modal">
+		<a id="close1" onclick="document.getElementById('askque1').style.display='none'">&#10006 </a>
+		<form id="answque" method="post" action="/answer/">
+            {% csrf_token %}
+			<div id="askquestion">
+				<div id="who_added">
+					<img src="../../static/se/images/avatar.jpg" id="avatar">
+					<h1 id="profile_name_ask"> {{ user.username }} </h1>
+
+				</div>
+                <input type="hidden" name="q_id" value="{{ questions1.id }}">
+                <input type="hidden" name="q_dt" value="{{ questions1.q_dt }}">
+                <input type="hidden" name="a_dt" value="{{ 0 }}">
+                <input type="hidden" name="username" value="{{ user.username }}">
+                <input type="hidden" name="question" value="{{ questions1.question }}">
+				<input type="text" name="answer" placeholder="Answer">
+			</div>
+
+			<div id="footbar">
+				<button type="submit">Add Answer</button>
+			</div>
+		</form>
+	</div>
+
+
+</div>
+</div>
+
+
+    {% endfor %}
+
+
+
+
+{% load poll_tags %}
+
+{% poll %}
+
+
+
+
+
+
+{#Poll#}
+{#<div class="post">#}
+{#	<div id="quest_views">#}
+{#		<p id="question">Which topic should I know to crack the junior web developer interview most?</p>#}
+{#		<i class="fa fa-area-chart" id="views"> <span id="count_views">1.2k votes</span></i>#}
+{#	</div>#}
+{#	<div class="vote">#}
+{#		<form action="/action_page.php">#}
+{#			<input type="radio" name="choice" value="choice1"> HTML<br>#}
+{#			<input type="radio" name="choice" value="choice2"> CSS<br>#}
+{#			<input type="radio" name="choice" value="choice3" checked> Javascript<br><br>#}
+{#			<input type="submit" value="Vote" class="vote_button">#}
+{#			<span class="time_left"> 23 hours left</span>#}
+{#		</form>#}
+{#	</div>#}
+{#	<div class="answer_box">#}
+{#		<button><i class="fa fa-bell"><span>Follow</span></i></button>#}
+{#		<button><i class="fa fa-bookmark-o"><span>Bookmark</span></i></button>#}
+{#	</div>#}
+{#</div>#}
+{% endblock %}
+
+{% block rap %}
+    <div id="askque" class="ask">
+	<div class="whichone" id="modal">
+		<div id="topbar">
+			<a id="close" onclick="document.getElementById('askque').style.display='none'">&#10006 </a>
+			<div id="top_leftbar">
+
+			<button id="downline1" onclick="question()">Ask a Question</button>
+			<button id="downline2" onclick="poll()">Create a Poll</button>
+			</div>
+		</div>
+		<form id="formque" method="post" action="/addquestion/">
+            {% csrf_token %}
+		<div id="askquestion">
+			<div id="who_added">
+			<img src="../../static/se/images/avatar.jpg" id="avatar">
+			<h1 id="profile_name_ask">{{ user.username }} is here </h1>
+
+			</div>
+			<input type="text" name="question" placeholder="Type your question" id="qst">
+            <input type="hidden" name="q_dt" value="{{ 0 }}">
+
+		</div>
+
+		<div id="footbar">
+			<button type="submit">Add Question</button>
+		</div>
+	</form>
+	<form id="formpoll" method="post">
+			<div id="createpoll" >
+			<div id="who_added">
+			<img src="../../static/se/images/avatar.jpg" id="avatar">
+			<h1 id="profile_name_ask">{{ user.username }} </h1>
+
+			</div>
+			<input type="text" name="ask_question" placeholder="Type your question" id="pollque">
+			<div id="options">
+				<input type="text" name="choice 1" placeholder="Choice 1" class="before">
+				<input type="text" name="choice 2" placeholder="Choice 2" class="before">
+				<div class="before">
+				<input type="text" name="choice 3" placeholder="Choice 3(optional)" id="ch3opt">
+				<a id="options_close1" onclick="opt3close()">&#10006 </a>
+				</div>
+				<div class="before">
+				<input type="text" name="choice 4" placeholder="Choice 4(optional)" id="ch4opt">
+				<a id="options_close2" onclick="opt4close()">&#10006 </a>
+				</div>
+				<button id="addopt" onclick="addot()" type="button" class="before">Add option</button>
+			</div>
+		</div>
+				<div id="footbar">
+					<div id="polltime">
+						<h1>Poll length:</h1>
+						<label id="day">Day</label>
+          				<input type="number" name="day"  value="1"  min="1" max="365">
+          				<label id="hours">Hours</label>
+          				<input type="number" name="hours"  value="0"  min="0" max="23">
+          				<label id="min">Min</label>
+          				<input type="number" name="min"  value="0"  min="1" max="59">
+					</div>
+			<button type="submit">Create poll</button>
+		</div>
+	</form>
+
+	</div>
+
+
+</div>
+{% endblock %}
